@@ -1,4 +1,4 @@
-package com.sasd.data.mapper
+package com.sasd.data.mapper.vcs
 
 import com.sasd.data.client.vcs.dto.FileContentDto
 import com.sasd.domain.entity.vcs.FileContent
