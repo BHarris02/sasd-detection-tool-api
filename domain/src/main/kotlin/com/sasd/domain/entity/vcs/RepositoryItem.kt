@@ -4,5 +4,5 @@ data class RepositoryItem(
     val name: String,
     val path: String,
     val type: RepositoryItemType,
-    val children: List<RepositoryItem>
+    val children: List<RepositoryItem>?
 )
