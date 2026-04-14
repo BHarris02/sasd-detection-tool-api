@@ -49,6 +49,21 @@ class GitHubApiService(
     }
 
     override suspend fun fetchRepositoryStructure(repoUrl: String): List<RepositoryItemDto> {
-        return client.get("/repos/$repoUrl/contents").body()
+        val resp = client.get("/repos/$repoUrl/contents").body<List<RepositoryItemDto>>()
+        return parseRepositoryStructure(resp)
+    }
+
+    // utils
+
+    private suspend fun parseRepositoryStructure(items: List<RepositoryItemDto>): List<RepositoryItemDto> {
+        return items.map { item ->
+            if (item.type == "dir") {
+                val children = client.get(item.url).body<List<RepositoryItemDto>>()
+                item.copy(children = parseRepositoryStructure(children))
+            }
+            else {
+                item
+            }
+        }
     }
 }
