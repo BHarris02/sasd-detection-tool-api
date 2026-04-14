@@ -1,6 +1,6 @@
 package com.sasd.data.repository
 
-import com.sasd.data.client.mapper.toDomain
+import com.sasd.data.mapper.toDomain
 import com.sasd.data.client.vcs.VcsApiService
 import com.sasd.domain.common.DomainError
 import com.sasd.domain.entity.vcs.Commit
@@ -49,7 +49,9 @@ class VcsRepositoryImpl(
     override suspend fun getRepositoryItem(repoUrl: String): List<RepositoryItem> {
         try {
             val itemDtos = vcsApiService.fetchRepositoryStructure(repoUrl)
-            return emptyList()
+            return itemDtos.map { dto ->
+                dto.toDomain()
+            }
         }
         catch (e: Exception) {
             throw DomainError()
