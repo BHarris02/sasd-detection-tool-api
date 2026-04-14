@@ -18,7 +18,7 @@ interface VcsRepository {
      * @param repoUrl the URL of the remote repository.
      * @return a list of [Commit] objects parsed from the remote data source.
      */
-    fun getCommits(repoUrl: String): List<Commit>
+    suspend fun getCommits(repoUrl: String): List<Commit>
 
     /**
      * Retrieves all issues for a given repository.
@@ -26,7 +26,7 @@ interface VcsRepository {
      * @param repoUrl the URL of the remote repository.
      * @return a list of [Issue] objects parsed from the remote data source.
      */
-    fun getIssues(repoUrl: String): List<Issue>
+    suspend fun getIssues(repoUrl: String): List<Issue>
 
     /**
      * Retrieves the content of a specific file in a repository.
@@ -35,7 +35,7 @@ interface VcsRepository {
      * @param filePath the path to the file within the repository.
      * @return a [FileContent] object containing the file's content.
      */
-    fun getFileContent(repoUrl: String, filePath: String): FileContent
+    suspend fun getFileContent(repoUrl: String, filePath: String): FileContent
 
     /**
      * Retrieves the top-level items (files and directories) of a repository.
@@ -43,5 +43,5 @@ interface VcsRepository {
      * @param repoUrl the URL of the remote repository.
      * @return a list of [RepositoryItem] objects representing the repository contents.
      */
-    fun getRepositoryItem(repoUrl: String): List<RepositoryItem>
+    suspend fun getRepositoryItem(repoUrl: String): List<RepositoryItem>
 }
