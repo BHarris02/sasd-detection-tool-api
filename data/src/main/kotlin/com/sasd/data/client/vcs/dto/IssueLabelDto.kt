@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IssueLabelDto(
     val name: String,
-    val description: String
+    val description: String?
 )
