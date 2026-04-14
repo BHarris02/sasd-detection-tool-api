@@ -19,7 +19,7 @@ interface NlpGateway {
      * @param commits the list of [Commit] objects to analyse.
      * @return a list of [NlpAnalysis] results, one per commit.
      */
-    fun analyzeCommits(commits: List<Commit>): List<NlpAnalysis>
+    suspend fun analyzeCommits(commits: List<Commit>): List<NlpAnalysis>
 
     /**
      * Sends a list of issues to the LLM API for sentiment analysis.
@@ -27,7 +27,7 @@ interface NlpGateway {
      * @param issues the list of [Issue] objects to analyse.
      * @return a list of [NlpAnalysis] results, one per issue.
      */
-    fun analyzeIssues(issues: List<Issue>): List<NlpAnalysis>
+    suspend fun analyzeIssues(issues: List<Issue>): List<NlpAnalysis>
 
     /**
      * Sends a code snippet to the LLM API for comment sentiment analysis.
@@ -35,7 +35,7 @@ interface NlpGateway {
      * @param sourceCode the [CodeSnippet] containing the code to analyse.
      * @return an [NlpAnalysis] result for the snippet's comments.
      */
-    fun analyzeCodeComments(sourceCode: CodeSnippet): NlpAnalysis
+    suspend fun analyzeCodeComments(sourceCode: CodeSnippet): NlpAnalysis
 
     /**
      * Sends file content to the LLM API for comment sentiment analysis.
@@ -43,5 +43,5 @@ interface NlpGateway {
      * @param content the [FileContent] containing the file to analyse.
      * @return an [NlpAnalysis] result for the file's comments.
      */
-    fun analyzeFileComments(content: FileContent): NlpAnalysis
+    suspend fun analyzeFileComments(content: FileContent): NlpAnalysis
 }
