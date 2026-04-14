@@ -1,6 +1,6 @@
 package com.sasd.data.repository
 
-import com.sasd.data.mapper.toDomain
+import com.sasd.data.mapper.vcs.toDomain
 import com.sasd.data.client.vcs.VcsApiService
 import com.sasd.domain.common.DomainError
 import com.sasd.domain.entity.vcs.Commit
