@@ -12,20 +12,20 @@ interface VcsApiService {
     /**
      * Fetch `CommitDto` from remote data source.
      */
-    fun fetchCommits(repoUrl: String): List<CommitDto>
+    suspend fun fetchCommits(repoUrl: String): List<CommitDto>
 
     /**
      * Fetch `IssueDto` from remote data source.
      */
-    fun fetchIssues(repoUrl: String): List<IssueDto>
+    suspend fun fetchIssues(repoUrl: String): List<IssueDto>
 
     /**
      * Fetch `FileContent` from remote data source.
      */
-    fun fetchFileContent(repoUrl: String, filePath: String): FileContentDto
+    suspend fun fetchFileContent(repoUrl: String, filePath: String): FileContentDto
 
     /**
      * Fetch `RepositoryItemDto` from remote data source.
      */
-    fun fetchRepositoryStructure(repoUrl: String): List<RepositoryItemDto>
+    suspend fun fetchRepositoryStructure(repoUrl: String): List<RepositoryItemDto>
 }
