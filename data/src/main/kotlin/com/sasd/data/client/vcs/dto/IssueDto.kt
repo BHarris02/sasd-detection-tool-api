@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IssueDto(
     val title: String,
-    val description: String,
-    val labels: List<IssueLabelDto>
+    val body: String?,
+    val labels: List<IssueLabelDto>?
 )

@@ -4,5 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CommitDto(
-    val message: String
-)
+    val commit: Detail
+) {
+    @Serializable
+    data class Detail(
+        val message: String
+    )
+}
