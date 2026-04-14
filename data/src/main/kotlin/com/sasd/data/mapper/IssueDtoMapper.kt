@@ -1,4 +1,4 @@
-package com.sasd.data.client.mapper
+package com.sasd.data.mapper
 
 import com.sasd.data.client.vcs.dto.IssueDto
 import com.sasd.data.client.vcs.dto.IssueLabelDto
