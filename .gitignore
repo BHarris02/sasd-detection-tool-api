@@ -32,3 +32,6 @@ build/
 
 # IntelliJ IDEA
 .idea/
+
+# Application Properties
+**/application.properties
