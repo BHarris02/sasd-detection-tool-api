@@ -1,15 +1,16 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm")
 }
 
 group = "com.sasd"
-version = "unspecified"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation("org.springframework:spring-web:6.2.8")
     testImplementation(kotlin("test"))
 }
 
