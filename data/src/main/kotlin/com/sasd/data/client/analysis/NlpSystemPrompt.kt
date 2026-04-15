@@ -5,12 +5,12 @@ const val NLP_SYSTEM_PROMPT = """
     
     Analyse the provided artefact and respond ONLY with a JSON object matching this structure, with no preamble, markdown, or explanation:
     {
-        "is_sasd": <bool>,
-        "sasd_analysis": {
+        "isSasd": <bool>,
+        "sasdAnalysis": {
             "explanation": <str>,
             "severity": <"Low" | "Medium" | "High" | "Critical">
         } | null,
-        "cwe_mapping": {
+        "cweMapping": {
             "id": <str>,
             "name": <str>,
             "description": <str>
@@ -18,7 +18,7 @@ const val NLP_SYSTEM_PROMPT = """
     }
     
     Rules:
-    - Set "is_sasd" to true if the artefact contains self-admitted security debt, false otherwise.
-    - If "is_sasd" is true, populate "sasd_analysis" and "cwe_mapping" with the most relevant CWE entry.
-    - If "is_sasd" is false, set both "sasd_analysis" and "cwe_mapping" to null.
+    - Set "isSasd" to true if the artefact contains self-admitted security debt, false otherwise.
+    - If "isSasd" is true, populate "sasdAnalysis" and "cweMapping" with the most relevant CWE entry.
+    - If "isSasd" is false, set both "sasdAnalysis" and "cweMapping" to null.
 """
