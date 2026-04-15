@@ -16,7 +16,6 @@ dependencies {
     implementation("io.ktor:ktor-client-core:3.1.2")
     implementation("io.ktor:ktor-client-cio:3.1.2")     // coroutines
     implementation("io.ktor:ktor-client-content-negotiation:3.1.2")
-    implementation("io.ktor:ktor-client-core:3.1.2")
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.2")
     // google genai
     implementation("com.google.genai:google-genai:1.0.0")
