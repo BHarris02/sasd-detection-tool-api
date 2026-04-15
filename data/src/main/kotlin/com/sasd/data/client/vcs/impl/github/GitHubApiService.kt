@@ -14,13 +14,14 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
+import io.ktor.utils.io.core.Closeable
 import kotlinx.serialization.json.Json
 
 class GitHubApiService(
     private val apiToken: String,
     private val baseUrl: String,
     private val timeout: Long
-): VcsApiService {
+): VcsApiService, Closeable {
 
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -65,5 +66,9 @@ class GitHubApiService(
                 item
             }
         }
+    }
+
+    override fun close() {
+        client.close()
     }
 }
