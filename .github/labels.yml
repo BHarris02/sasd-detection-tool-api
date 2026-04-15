@@ -1,0 +1,35 @@
+- name: api-layer
+  color: "00aabb"
+  description: "Relates to the :api: module"
+
+- name: app-layer
+  color: "005cc5"
+  description: "Relates to the :app: module"
+
+- name: bug
+  color: "d73a4a"
+  description: "Something isn't working"
+
+- name: data-layer
+  color: "0075ca"
+  description: "Relates to the :data: module"
+
+- name: documentation
+  color: "8250df"
+  description: "Improvements or additions to documentation"
+
+- name: domain-layer
+  color: "7057ff"
+  description: "Relates to the :domain: module"
+
+- name: feature
+  color: "2ea44f"
+  description: "New feature or request"
+
+- name: refactor
+  color: "f97316"
+  description: "Code improvement without behaviour change"
+
+- name: tech-debt
+  color: "e4b429"
+  description: "Technical debt to be addressed"
