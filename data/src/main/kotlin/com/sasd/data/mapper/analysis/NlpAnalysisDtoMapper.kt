@@ -22,6 +22,6 @@ fun CweMappingDto.toDomain() = CweMapping(
 
 fun NlpAnalysisDto.toDomain() = NlpAnalysis(
     isSasd = isSasd,
-    sasdAnalysis = sasdAnalysis.toDomain(),
-    cweMapping = cweMapping.toDomain()
+    sasdAnalysis = sasdAnalysis?.toDomain(),
+    cweMapping = cweMapping?.toDomain()
 )
