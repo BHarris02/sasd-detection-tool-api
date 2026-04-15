@@ -1,5 +1,6 @@
 package com.sasd.domain.usecase.analysis
 
+import com.sasd.domain.common.DomainError
 import com.sasd.domain.common.DomainResult
 import com.sasd.domain.entity.analysis.NlpAnalysis
 import com.sasd.domain.entity.vcs.Issue
@@ -7,14 +8,21 @@ import com.sasd.domain.gateway.NlpGateway
 import com.sasd.domain.repository.VcsRepository
 
 fun interface AnalyzeIssuesUseCase {
-    operator fun invoke(issues: List<Issue>): DomainResult<List<NlpAnalysis>>
+    suspend operator fun invoke(repoUrl: String): DomainResult<List<NlpAnalysis>>
 }
 
 internal class AnalyzeIssuesUseCaseImpl(
     private val nlpGateway: NlpGateway,
     private val vcsRepository: VcsRepository
 ): AnalyzeIssuesUseCase {
-    override fun invoke(issues: List<Issue>): DomainResult<List<NlpAnalysis>> {
-        TODO("Not yet implemented")
+    override suspend fun invoke(repoUrl: String): DomainResult<List<NlpAnalysis>> {
+        try {
+            val issues = vcsRepository.getIssues(repoUrl)
+            val issueAnalyses = nlpGateway.analyzeIssues(issues)
+            return DomainResult.Success(issueAnalyses)
+        }
+        catch (e: DomainError) {
+            return DomainResult.Failure(e)
+        }
     }
 }
