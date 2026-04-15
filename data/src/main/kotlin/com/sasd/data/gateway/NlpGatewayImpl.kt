@@ -9,17 +9,23 @@ import com.sasd.domain.entity.vcs.Commit
 import com.sasd.domain.entity.vcs.FileContent
 import com.sasd.domain.entity.vcs.Issue
 import com.sasd.domain.gateway.NlpGateway
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 
 class NlpGatewayImpl(
     private val nlpApiService: NlpApiService
 ): NlpGateway {
     override suspend fun analyzeCommits(commits: List<Commit>): List<NlpAnalysis> {
         try {
-            val analysesDtos = commits.map { commit ->
-                nlpApiService.analyzeCommit(commit.message)
-            }
-            return analysesDtos.map { dto ->
-                dto.toDomain()
+            return coroutineScope {
+                commits.map {
+                    async {
+                        nlpApiService.analyzeCommit(it.message)
+                    }
+                }
+            }.awaitAll().map {
+                it.toDomain()
             }
         }
         catch (e: Exception) {
@@ -29,11 +35,14 @@ class NlpGatewayImpl(
 
     override suspend fun analyzeIssues(issues: List<Issue>): List<NlpAnalysis> {
         try {
-            val analysesDtos = issues.map { issue ->
-                nlpApiService.analyzeIssue("${issue.title}: \n${issue.description}")    // TODO: parse issue labels
-            }
-            return analysesDtos.map { dto ->
-                dto.toDomain()
+            return coroutineScope {
+                issues.map {
+                    async {
+                        nlpApiService.analyzeIssue("${it.title}: \n${it.description}")
+                    }
+                }
+            }.awaitAll().map {
+                it.toDomain()
             }
         }
         catch (e: Exception) {
@@ -43,8 +52,7 @@ class NlpGatewayImpl(
 
     override suspend fun analyzeCodeComments(sourceCode: CodeSnippet): NlpAnalysis {
         try {
-            val analysisDto = nlpApiService.analyzeComment(sourceCode.body)
-            return analysisDto.toDomain()
+            return nlpApiService.analyzeComment(sourceCode.body).toDomain()
         }
         catch (e: Exception) {
             throw DomainError()
@@ -53,8 +61,7 @@ class NlpGatewayImpl(
 
     override suspend fun analyzeFileComments(content: FileContent): NlpAnalysis {
         try {
-            val analysisDto = nlpApiService.analyzeComment(content.content)
-            return analysisDto.toDomain()
+            return nlpApiService.analyzeComment(content.content).toDomain()
         }
         catch (e: Exception) {
             throw DomainError()
