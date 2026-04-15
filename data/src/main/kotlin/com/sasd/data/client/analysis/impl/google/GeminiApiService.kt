@@ -9,11 +9,12 @@ import com.sasd.data.client.analysis.NLP_SYSTEM_PROMPT
 import com.sasd.data.client.analysis.NlpApiService
 import com.sasd.data.client.analysis.NlpArtifactType
 import com.sasd.data.client.analysis.dto.NlpAnalysisDto
+import io.ktor.utils.io.core.Closeable
 
 class GeminiApiService(
     private val apiToken: String,
     private val model: String
-): NlpApiService {
+): NlpApiService, Closeable {
 
     private val client = Client.builder()
         .apiKey(apiToken)
@@ -46,5 +47,9 @@ class GeminiApiService(
             config
         )
         TODO("Parse resp.text() into NlpAnalysisDto")
+    }
+
+    override fun close() {
+        client.close()
     }
 }
