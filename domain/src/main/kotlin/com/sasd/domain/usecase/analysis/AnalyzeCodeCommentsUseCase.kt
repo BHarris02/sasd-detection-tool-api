@@ -10,7 +10,7 @@ fun interface AnalyzeCodeCommentsUseCase {
     suspend operator fun invoke(sourceCode: CodeSnippet): DomainResult<NlpAnalysis>
 }
 
-internal class AnalyzeCodeCommentsUseCaseImpl(
+class AnalyzeCodeCommentsUseCaseImpl(
     private val nlpGateway: NlpGateway
 ): AnalyzeCodeCommentsUseCase {
     override suspend fun invoke(sourceCode: CodeSnippet): DomainResult<NlpAnalysis> {

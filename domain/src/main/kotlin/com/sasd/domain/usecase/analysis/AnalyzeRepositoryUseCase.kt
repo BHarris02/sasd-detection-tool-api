@@ -9,7 +9,7 @@ fun interface AnalyzeRepositoryUseCase {
     operator fun invoke(repoUrl: String): DomainResult<List<NlpAnalysis>>
 }
 
-internal class AnalyzeRepositoryUseCaseImpl(
+class AnalyzeRepositoryUseCaseImpl(
     private val vcsRepository: VcsRepository,
     private val nlpGateway: NlpGateway
 ): AnalyzeRepositoryUseCase {

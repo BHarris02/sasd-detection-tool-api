@@ -11,7 +11,7 @@ fun interface AnalyzeIssuesUseCase {
     suspend operator fun invoke(repoUrl: String): DomainResult<List<NlpAnalysis>>
 }
 
-internal class AnalyzeIssuesUseCaseImpl(
+class AnalyzeIssuesUseCaseImpl(
     private val nlpGateway: NlpGateway,
     private val vcsRepository: VcsRepository
 ): AnalyzeIssuesUseCase {

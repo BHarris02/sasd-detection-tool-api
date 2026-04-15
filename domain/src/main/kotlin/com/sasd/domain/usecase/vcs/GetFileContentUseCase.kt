@@ -9,7 +9,7 @@ fun interface GetFileContentUseCase {
     suspend operator fun invoke(repoUrl: String, filePath: String): DomainResult<FileContent>
 }
 
-internal class GetFileContentUseCaseImpl(
+class GetFileContentUseCaseImpl(
     private val vcsRepository: VcsRepository
 ): GetFileContentUseCase {
     override suspend fun invoke(repoUrl: String, filePath: String): DomainResult<FileContent> {

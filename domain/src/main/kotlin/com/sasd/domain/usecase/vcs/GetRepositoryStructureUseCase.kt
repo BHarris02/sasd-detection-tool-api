@@ -9,7 +9,7 @@ fun interface GetRepositoryStructureUseCase {
     suspend operator fun invoke(repoUrl: String): DomainResult<List<RepositoryItem>>
 }
 
-internal class GetRepositoryStructureUseCaseImpl(
+class GetRepositoryStructureUseCaseImpl(
     private val vcsRepository: VcsRepository
 ): GetRepositoryStructureUseCase {
     override suspend fun invoke(repoUrl: String): DomainResult<List<RepositoryItem>> {

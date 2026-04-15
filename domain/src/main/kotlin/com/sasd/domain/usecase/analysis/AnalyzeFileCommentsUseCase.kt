@@ -11,7 +11,7 @@ fun interface AnalyzeFileCommentsUseCase {
     suspend operator fun invoke(repoUrl: String, filePath: String): DomainResult<NlpAnalysis>
 }
 
-internal class AnalyzeFileCommentsUseCaseImpl(
+class AnalyzeFileCommentsUseCaseImpl(
     private val nlpGateway: NlpGateway,
     private val vcsRepository: VcsRepository
 ): AnalyzeFileCommentsUseCase {
