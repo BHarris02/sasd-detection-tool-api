@@ -1,4 +1,4 @@
-package com.sasd.backend
+package com.sasd.app
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
