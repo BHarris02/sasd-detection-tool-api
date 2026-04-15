@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":domain"))
     implementation("org.springframework:spring-web:6.2.8")
     testImplementation(kotlin("test"))
 }
