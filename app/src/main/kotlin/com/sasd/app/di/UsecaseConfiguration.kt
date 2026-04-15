@@ -48,7 +48,7 @@ class UsecaseConfiguration {
     ): AnalyzeCodeCommentsUseCase = AnalyzeCodeCommentsUseCaseImpl(nlpGateway)
 
     @Bean
-    fun analyzeFileCommentsUsecase(
+    fun analyzeFileCommentsUseCase(
         nlpGateway: NlpGateway,
         vcsRepository: VcsRepository
     ): AnalyzeFileCommentsUseCase = AnalyzeFileCommentsUseCaseImpl(nlpGateway, vcsRepository)
