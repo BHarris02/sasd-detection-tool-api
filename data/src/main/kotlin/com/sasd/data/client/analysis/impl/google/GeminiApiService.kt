@@ -9,8 +9,8 @@ import com.sasd.data.client.analysis.NLP_SYSTEM_PROMPT
 import com.sasd.data.client.analysis.NlpApiService
 import com.sasd.data.client.analysis.NlpArtifactType
 import com.sasd.data.client.analysis.dto.NlpAnalysisDto
-import io.ktor.utils.io.core.Closeable
 import kotlinx.serialization.json.Json
+import java.io.Closeable
 
 class GeminiApiService(
     private val apiToken: String,

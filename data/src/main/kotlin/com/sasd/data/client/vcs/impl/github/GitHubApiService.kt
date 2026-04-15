@@ -14,8 +14,8 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
-import io.ktor.utils.io.core.Closeable
 import kotlinx.serialization.json.Json
+import java.io.Closeable
 
 class GitHubApiService(
     private val apiToken: String,
