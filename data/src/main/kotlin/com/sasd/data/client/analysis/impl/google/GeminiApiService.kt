@@ -10,6 +10,7 @@ import com.sasd.data.client.analysis.NlpApiService
 import com.sasd.data.client.analysis.NlpArtifactType
 import com.sasd.data.client.analysis.dto.NlpAnalysisDto
 import io.ktor.utils.io.core.Closeable
+import kotlinx.serialization.json.Json
 
 class GeminiApiService(
     private val apiToken: String,
@@ -25,16 +26,18 @@ class GeminiApiService(
         .responseMimeType("application/json")
         .build()
 
+    private val json = Json { ignoreUnknownKeys = true }
+
     override suspend fun analyzeCommit(commitMessage: String): NlpAnalysisDto {
-        return analyzeArtifact(commitMessage, NlpArtifactType.COMMIT.name)
+        return analyzeArtifact(commitMessage, NlpArtifactType.COMMIT.value)
     }
 
     override suspend fun analyzeIssue(issue: String): NlpAnalysisDto {
-        return analyzeArtifact(issue, NlpArtifactType.ISSUE.name)
+        return analyzeArtifact(issue, NlpArtifactType.ISSUE.value)
     }
 
     override suspend fun analyzeComment(comment: String): NlpAnalysisDto {
-        return analyzeArtifact(comment, NlpArtifactType.COMMENT.name)
+        return analyzeArtifact(comment, NlpArtifactType.COMMENT.value)
     }
 
     // utils
@@ -46,7 +49,8 @@ class GeminiApiService(
             prompt,
             config
         )
-        TODO("Parse resp.text() into NlpAnalysisDto")
+        val text = resp.text() ?: throw IllegalStateException()
+        return json.decodeFromString<NlpAnalysisDto>(text)
     }
 
     override fun close() {
