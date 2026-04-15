@@ -2,7 +2,7 @@ package com.sasd.app.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "sasd")
 data class AppConfig(
     // vcs
     val githubToken: String,
