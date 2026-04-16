@@ -29,7 +29,7 @@ class NlpGatewayImpl(
             }
         }
         catch (e: Exception) {
-            throw DomainError()
+            throw DomainError("Failed to analyze commits", e)
         }
     }
 
@@ -46,7 +46,7 @@ class NlpGatewayImpl(
             }
         }
         catch (e: Exception) {
-            throw DomainError()
+            throw DomainError("Failed to analyze issues", e)
         }
     }
 
@@ -55,7 +55,7 @@ class NlpGatewayImpl(
             return nlpApiService.analyzeComment(sourceCode.body).toDomain()
         }
         catch (e: Exception) {
-            throw DomainError()
+            throw DomainError("Failed to analyze code comments", e)
         }
     }
 
@@ -64,7 +64,7 @@ class NlpGatewayImpl(
             return nlpApiService.analyzeComment(content.content).toDomain()
         }
         catch (e: Exception) {
-            throw DomainError()
+            throw DomainError("Failed to analyze file comments", e)
         }
     }
 }
