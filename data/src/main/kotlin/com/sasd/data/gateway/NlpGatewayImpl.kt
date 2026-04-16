@@ -3,6 +3,7 @@ package com.sasd.data.gateway
 import com.sasd.data.client.analysis.NlpApiService
 import com.sasd.data.mapper.analysis.toDomain
 import com.sasd.domain.common.DomainError
+import com.sasd.domain.entity.analysis.AnalysisArtifact
 import com.sasd.domain.entity.analysis.NlpAnalysis
 import com.sasd.domain.entity.vcs.CodeSnippet
 import com.sasd.domain.entity.vcs.Commit
@@ -19,14 +20,13 @@ class NlpGatewayImpl(
     override suspend fun analyzeCommits(commits: List<Commit>): List<NlpAnalysis> {
         try {
             return coroutineScope {
-                commits.map {
+                commits.map { commit ->
                     async {
-                        nlpApiService.analyzeCommit(it.message)
+                        val dto = nlpApiService.analyzeCommit(commit.message)
+                        dto.toDomain(AnalysisArtifact.CommitArtifact(commit))
                     }
                 }
-            }.awaitAll().map {
-                it.toDomain()
-            }
+            }.awaitAll()
         }
         catch (e: Exception) {
             throw DomainError("Failed to analyze commits", e)
@@ -36,14 +36,13 @@ class NlpGatewayImpl(
     override suspend fun analyzeIssues(issues: List<Issue>): List<NlpAnalysis> {
         try {
             return coroutineScope {
-                issues.map {
+                issues.map { issue ->
                     async {
-                        nlpApiService.analyzeIssue("${it.title}: \n${it.description}")
+                        val dto = nlpApiService.analyzeIssue("${issue.title}: \n${issue.description}")
+                        dto.toDomain(AnalysisArtifact.IssueArtifact(issue))
                     }
                 }
-            }.awaitAll().map {
-                it.toDomain()
-            }
+            }.awaitAll()
         }
         catch (e: Exception) {
             throw DomainError("Failed to analyze issues", e)
@@ -52,7 +51,7 @@ class NlpGatewayImpl(
 
     override suspend fun analyzeCodeComments(sourceCode: CodeSnippet): NlpAnalysis {
         try {
-            return nlpApiService.analyzeComment(sourceCode.body).toDomain()
+            return nlpApiService.analyzeComment(sourceCode.body).toDomain(AnalysisArtifact.CodeSnippetArtifact(sourceCode))
         }
         catch (e: Exception) {
             throw DomainError("Failed to analyze code comments", e)
@@ -61,7 +60,7 @@ class NlpGatewayImpl(
 
     override suspend fun analyzeFileComments(content: FileContent): NlpAnalysis {
         try {
-            return nlpApiService.analyzeComment(content.content).toDomain()
+            return nlpApiService.analyzeComment(content.content).toDomain(AnalysisArtifact.FileContentArtifact(content))
         }
         catch (e: Exception) {
             throw DomainError("Failed to analyze file comments", e)

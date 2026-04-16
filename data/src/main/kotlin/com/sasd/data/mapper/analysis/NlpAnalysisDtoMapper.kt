@@ -4,6 +4,7 @@ import com.sasd.data.client.analysis.dto.CweMappingDto
 import com.sasd.data.client.analysis.dto.NlpAnalysisDto
 import com.sasd.data.client.analysis.dto.SasdAnalysisDto
 import com.sasd.domain.common.DomainError
+import com.sasd.domain.entity.analysis.AnalysisArtifact
 import com.sasd.domain.entity.analysis.CweMapping
 import com.sasd.domain.entity.analysis.NlpAnalysis
 import com.sasd.domain.entity.analysis.SasdAnalysis
@@ -20,7 +21,8 @@ fun CweMappingDto.toDomain() = CweMapping(
     description = description
 )
 
-fun NlpAnalysisDto.toDomain() = NlpAnalysis(
+fun NlpAnalysisDto.toDomain(artifact: AnalysisArtifact) = NlpAnalysis(
+    artifact = artifact,
     isSasd = isSasd,
     sasdAnalysis = sasdAnalysis?.toDomain(),
     cweMapping = cweMapping?.toDomain()
