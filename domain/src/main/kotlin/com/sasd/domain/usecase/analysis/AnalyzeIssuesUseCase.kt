@@ -18,8 +18,8 @@ class AnalyzeIssuesUseCaseImpl(
     override suspend fun invoke(repoUrl: String): DomainResult<List<NlpAnalysis>> {
         try {
             val issues = vcsRepository.getIssues(repoUrl)
-            val issueAnalyses = nlpGateway.analyzeIssues(issues)
-            return DomainResult.Success(issueAnalyses)
+            val filteredIssueAnalyses = nlpGateway.analyzeIssues(issues).filter { it.isSasd }
+            return DomainResult.Success(filteredIssueAnalyses)
         }
         catch (e: DomainError) {
             return DomainResult.Failure(e)
