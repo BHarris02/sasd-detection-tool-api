@@ -7,15 +7,15 @@ import com.sasd.domain.entity.vcs.CodeSnippet
 import com.sasd.domain.gateway.NlpGateway
 
 fun interface AnalyzeCodeCommentsUseCase {
-    suspend operator fun invoke(sourceCode: CodeSnippet): DomainResult<NlpAnalysis>
+    suspend operator fun invoke(sourceCode: String): DomainResult<NlpAnalysis>
 }
 
 class AnalyzeCodeCommentsUseCaseImpl(
     private val nlpGateway: NlpGateway
 ): AnalyzeCodeCommentsUseCase {
-    override suspend fun invoke(sourceCode: CodeSnippet): DomainResult<NlpAnalysis> {
+    override suspend fun invoke(sourceCode: String): DomainResult<NlpAnalysis> {
         try {
-            val analysis = nlpGateway.analyzeCodeComments(sourceCode)
+            val analysis = nlpGateway.analyzeCodeComments(CodeSnippet(body = sourceCode))
             return DomainResult.Success(analysis)
         }
         catch (e: DomainError) {
