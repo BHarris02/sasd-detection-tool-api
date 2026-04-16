@@ -4,6 +4,7 @@ import com.sasd.api.model.response.analysis.AnalyzeCodeCommentsResponse
 import com.sasd.api.model.response.analysis.AnalyzeCommitsResponse
 import com.sasd.api.model.response.analysis.AnalyzeFileCommentsResponse
 import com.sasd.api.model.response.analysis.AnalyzeIssuesResponse
+import com.sasd.domain.entity.analysis.AnalysisArtifact
 import com.sasd.domain.entity.analysis.NlpAnalysis
 
 private inline fun <T> NlpAnalysis.toResponse(
@@ -17,7 +18,18 @@ private inline fun <T> NlpAnalysis.toResponse(
     cweMapping?.description
 )
 
-fun NlpAnalysis.toCommitResponse() = toResponse(::AnalyzeCommitsResponse)
+fun NlpAnalysis.toCommitResponse(): AnalyzeCommitsResponse {
+    val commit = (artifact as AnalysisArtifact.CommitArtifact).commit
+    return AnalyzeCommitsResponse(
+        commitMessage = commit.message,
+        isSasd = isSasd,
+        explanation = sasdAnalysis?.explanation,
+        severity = sasdAnalysis?.severity?.name,
+        cweId = cweMapping?.id,
+        cweName = cweMapping?.name,
+        cweDescription = cweMapping?.description
+    )
+}
 
 fun NlpAnalysis.toIssueResponse() = toResponse(::AnalyzeIssuesResponse)
 
