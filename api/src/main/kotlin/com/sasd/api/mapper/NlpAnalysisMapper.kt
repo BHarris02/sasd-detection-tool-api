@@ -31,7 +31,19 @@ fun NlpAnalysis.toCommitResponse(): AnalyzeCommitsResponse {
     )
 }
 
-fun NlpAnalysis.toIssueResponse() = toResponse(::AnalyzeIssuesResponse)
+fun NlpAnalysis.toIssueResponse() :AnalyzeIssuesResponse {
+    val issue = (artifact as AnalysisArtifact.IssueArtifact).issue
+    val issueString = "${issue.title}: \n\n${issue.description}"
+    return AnalyzeIssuesResponse(
+        issue = issueString,
+        isSasd = isSasd,
+        explanation = sasdAnalysis?.explanation,
+        severity = sasdAnalysis?.severity?.name,
+        cweId = cweMapping?.id,
+        cweName = cweMapping?.name,
+        cweDescription = cweMapping?.description
+    )
+}
 
 fun NlpAnalysis.toCodeCommentsResponse() = toResponse(::AnalyzeCodeCommentsResponse)
 
