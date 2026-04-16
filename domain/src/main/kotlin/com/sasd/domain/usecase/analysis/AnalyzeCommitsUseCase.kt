@@ -18,8 +18,8 @@ class AnalyzeCommitsUseCaseImpl(
     override suspend fun invoke(repoUrl: String): DomainResult<List<NlpAnalysis>> {
         try {
             val commits = vcsRepository.getCommits(repoUrl)
-            val commitAnalyses = nlpGateway.analyzeCommits(commits)
-            return DomainResult.Success(commitAnalyses)
+            val filteredCommitAnalyses = nlpGateway.analyzeCommits(commits).filter { it.isSasd }
+            return DomainResult.Success(filteredCommitAnalyses)
         }
         catch (e: DomainError) {
             return DomainResult.Failure(e)
