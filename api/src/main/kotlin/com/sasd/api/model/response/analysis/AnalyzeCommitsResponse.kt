@@ -1,6 +1,7 @@
 package com.sasd.api.model.response.analysis
 
 data class AnalyzeCommitsResponse(
+    val commitMessage: String,
     val isSasd: Boolean,
     val explanation: String?,
     val severity: String?,
