@@ -8,43 +8,34 @@ import com.sasd.domain.entity.analysis.AnalysisArtifact
 import com.sasd.domain.entity.analysis.NlpAnalysis
 
 private inline fun <T> NlpAnalysis.toResponse(
-    factory: (Boolean, String?, String?, String?, String?, String?) -> T
+    factory: (String, Boolean, String?, String?, String?, String?, String?) -> T,
+    artifactText: String
 ): T = factory(
+    artifactText,
     isSasd,
     sasdAnalysis?.explanation,
-    sasdAnalysis?.severity?.value,
+    sasdAnalysis?.severity?.name,
     cweMapping?.id,
     cweMapping?.name,
     cweMapping?.description
 )
 
-fun NlpAnalysis.toCommitResponse(): AnalyzeCommitsResponse {
-    val commit = (artifact as AnalysisArtifact.CommitArtifact).commit
-    return AnalyzeCommitsResponse(
-        commitMessage = commit.message,
-        isSasd = isSasd,
-        explanation = sasdAnalysis?.explanation,
-        severity = sasdAnalysis?.severity?.name,
-        cweId = cweMapping?.id,
-        cweName = cweMapping?.name,
-        cweDescription = cweMapping?.description
-    )
-}
+fun NlpAnalysis.toCommitResponse() = toResponse(
+    ::AnalyzeCommitsResponse,
+    (artifact as AnalysisArtifact.CommitArtifact).commit.message
+)
 
-fun NlpAnalysis.toIssueResponse() :AnalyzeIssuesResponse {
+fun NlpAnalysis.toIssueResponse(): AnalyzeIssuesResponse {
     val issue = (artifact as AnalysisArtifact.IssueArtifact).issue
-    val issueString = "${issue.title}: \n\n${issue.description}"
-    return AnalyzeIssuesResponse(
-        issue = issueString,
-        isSasd = isSasd,
-        explanation = sasdAnalysis?.explanation,
-        severity = sasdAnalysis?.severity?.name,
-        cweId = cweMapping?.id,
-        cweName = cweMapping?.name,
-        cweDescription = cweMapping?.description
-    )
+    return toResponse(::AnalyzeIssuesResponse, "${issue.title}: \n\n${issue.description}")
 }
 
-fun NlpAnalysis.toCodeCommentsResponse() = toResponse(::AnalyzeCodeCommentsResponse)
+fun NlpAnalysis.toCodeCommentsResponse() = toResponse(
+    ::AnalyzeCodeCommentsResponse,
+    (artifact as AnalysisArtifact.CodeSnippetArtifact).codeSnippet.body
+)
 
-fun NlpAnalysis.toFileCommentsResponse() = toResponse(::AnalyzeFileCommentsResponse)
+fun NlpAnalysis.toFileCommentsResponse() = toResponse(
+    ::AnalyzeFileCommentsResponse,
+    (artifact as AnalysisArtifact.FileContentArtifact).fileContent.content
+)
