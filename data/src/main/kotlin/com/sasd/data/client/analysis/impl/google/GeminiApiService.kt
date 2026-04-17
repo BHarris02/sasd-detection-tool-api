@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 import java.io.Closeable
 
 class GeminiApiService(
-    private val apiToken: String,
+    apiToken: String,
     private val model: String
 ): NlpApiService, Closeable {
 
