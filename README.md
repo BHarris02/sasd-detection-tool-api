@@ -11,12 +11,12 @@ Kotlin Spring Boot backend for the SASD Detection Tool.
 
 ```mermaid
 graph TD
-    domain
-    data --> domain
-    api --> domain
-    app --> domain
-    app --> api
-    app --> data
+    :domain
+    :data --> :domain
+    :api --> :domain
+    :app --> :domain
+    :app --> :api
+    :app --> :data
 ```
 
 ## Getting Started
