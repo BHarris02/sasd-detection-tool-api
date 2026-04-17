@@ -1,8 +1,0 @@
-spring.application.name=sasd-backend
-
-sasd.githubToken=
-sasd.githubBaseUrl=
-sasd.githubTimeout=
-
-sasd.googleToken=
-sasd.googleModel=

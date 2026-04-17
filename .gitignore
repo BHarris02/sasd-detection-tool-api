@@ -33,8 +33,5 @@ build/
 # IntelliJ IDEA
 .idea/
 
-# Application Properties
-**/application.properties
-
 # Environment Secrets
 .env

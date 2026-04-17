@@ -9,6 +9,7 @@ data class AppConfig(
     val githubBaseUrl: String,
     val githubTimeout: Long,
     // nlp
-    val googleToken: String,
-    val googleModel: String
+    val llmProvider: String,
+    val llmApiKey: String,
+    val llmModel: String
 )
