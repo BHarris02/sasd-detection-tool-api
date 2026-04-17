@@ -7,7 +7,7 @@
 ![CI](https://github.com/BHarris02/sasd-detection-tool-api/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat)
 
-## Overview
+## :clipboard: Overview
 
 `sasd-detection-tool-api` is the RESTful backend API for the SASD Detection Tool.
 
@@ -19,7 +19,7 @@ Any detected debt instances are mapped to a relevant entry in the [Common Weakne
 Built with Kotlin and Spring Boot, the API follows [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles across a multi-module Gradle project,
 ensuring a clear separation of concerns and framework-agnostic domain logic.
 
-## Architecture
+## :classical_building: Architecture
 
 `sasd-detection-tool-api` follows [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles across a multi-module Gradle project.
 Each module has a single, well-defined responsibility, and dependencies are strictly enforced at compile time by Gradle
@@ -61,15 +61,15 @@ graph TD
 | `:api`    | `:domain`     | `:data`, `:app`         |
 | `:app`    | All modules   | &mdash;                 |
 
-## Prerequisites
+## :gear: Prerequisites
 
 _To be completed once Dockerised_
 
-## Getting Started
+## :rocket: Getting Started
 
 _To be completed once Dockerised_
 
-## API Reference
+## :satellite: API Reference
 
 ### Health
 
@@ -94,7 +94,7 @@ _To be completed once Dockerised_
 | `POST` | `/analysis/file-comments` | Analyse all comments in a source code file      |
 | `POST` | `/analysis/repository`    | Analyse all artefacts in a repository           |
 
-## Environment Variables
+## :key: Environment Variables
 
 Configuration is managed via a `.env` file at the repo root. To get started:
 
@@ -115,7 +115,7 @@ Then populate `.env` with your values:
 
 > In production, environment variables should be injected directly by your hosting platform.
 
-## Running Tests
+## :test_tube: Running Tests
 
 To run the full test suite:
 
