@@ -63,11 +63,35 @@ graph TD
 
 ## :gear: Prerequisites
 
-_To be completed once Dockerised_
+- [Docker](https://www.docker.com/)
 
 ## :rocket: Getting Started
 
-_To be completed once Dockerised_
+1. Clone the repository:
+
+```bash
+git clone https://github.com/bharris02/sasd-detection-tool-api.git
+cd sasd-detection-tool-api
+```
+
+2. Configure environment variables:
+
+```bash
+cp .env.example .env
+```
+Then populate `.env` with your values &mdash; see [Environment Variables](#key-environment-variables)
+
+3. Build the Docker image:
+
+```bash
+docker build -t sasd-detection-tool-api-image .
+```
+
+4. Run the container:
+
+```bash
+docker run --name sasd-detection-tool-api --env-file .env -p 8080:8080 sasd-detection-tool-api-image
+```
 
 ## :satellite: API Reference
 
